@@ -12,7 +12,22 @@ import { useState } from 'react';
 
 function App() {
 
-  const [clickCount, setClickCount] = useState(0);
+  const [gameName, setGameName] = useState("");
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    alert(`Search Initiated ${gameName}`);
+
+    fetch(`/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify(this.gameName)
+    })
+    .then(response => response.json())
+    .catch(error => console.log(error))
+  }
 
   return (
     <div className="App">
@@ -25,12 +40,11 @@ function App() {
         <Row>
           <Col></Col>
           <Col xs={7}>
-            <Form>
+            <Form onSubmit={handleSearchSubmit}>
               <Row className='d-flex justify-content-center'>
                 <Col xs='auto'>
                   <Form.Group className="mb-2">
-                    <Form.Control placeholder='Enter in game name'>
-                    </Form.Control>
+                    <Form.Control defaultValue={gameName} type='text' placeholder='Enter game name' onChange={(event) => setGameName(event.target.value)} />
                   </Form.Group>
                 </Col>
                 <Col xs='auto'>
