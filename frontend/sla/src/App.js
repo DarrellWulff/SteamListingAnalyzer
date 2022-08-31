@@ -23,7 +23,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body:JSON.stringify(this.gameName)
+      body: JSON.stringify(gameName)
     })
     .then(response => response.json())
     .catch(error => console.log(error))
